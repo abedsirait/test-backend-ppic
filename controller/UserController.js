@@ -37,6 +37,8 @@ export const uploadProductionresults = async (req, res) => {
             kategori, penyebabKarantina, keteranganKarantina, mesin, jenisproduk, namaproduk, labelumum, supervisor, operator1,operator2, operator3, shift, tanggal, tonase,totaljam, keterangan, details 
         } = req.body;
 
+        console.log("Data yang diterima dari frontend:", req.body);
+
         const penyebabKarantinaFinal = kategori === "Karantina" ? penyebabKarantina : null;
         const keteranganKarantinaFinal = kategori === "Karantina" ? keteranganKarantina : null;
 
@@ -83,6 +85,7 @@ export const uploadProductionresults = async (req, res) => {
         res.status(500).json({ msg: error.message });
     }
 }
+
 
 export const updateProductionresults = async (req, res) => {
     try {
