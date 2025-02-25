@@ -8,8 +8,7 @@ import UserRoute from "./routes/UserRoute.js";
 dotenv.config();
 const app = express();
 
-console.log("ACCESS_TOKEN_SECRET:", process.env.ACCESS_TOKEN_SECRET);
-console.log("REFRESH_TOKEN_SECRET:", process.env.REFRESH_TOKEN_SECRET);
+
 
 // Fungsi async untuk koneksi ke database
 const connectDB = async () => {
@@ -17,7 +16,7 @@ const connectDB = async () => {
 
         await db.authenticate();
         console.log("Database connected");
-        // await db.sync();
+       // await db.sync({ force: false, alter: true });
         // console.log("Database synced");
     } catch (error) {
         console.error("Database connection failed:", error);
@@ -30,7 +29,7 @@ const allowedOrigins = [process.env.CLIENT_URL];
 
 app.use(cors({
     origin: function (origin, callback) {
-        console.log("Request Origin:", origin);  // Debugging
+        //console.log("Request Origin:", origin);  // Debugging
         if (!origin || allowedOrigins.includes(origin)) {
             callback(null, true);
         } else {
