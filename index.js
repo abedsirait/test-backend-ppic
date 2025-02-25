@@ -8,6 +8,9 @@ import UserRoute from "./routes/UserRoute.js";
 dotenv.config();
 const app = express();
 
+console.log("ACCESS_TOKEN_SECRET:", process.env.ACCESS_TOKEN_SECRET);
+console.log("REFRESH_TOKEN_SECRET:", process.env.REFRESH_TOKEN_SECRET);
+
 // Fungsi async untuk koneksi ke database
 const connectDB = async () => {
     try {
