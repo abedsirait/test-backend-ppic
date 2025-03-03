@@ -13,7 +13,7 @@ RUN npm install
 # Copy seluruh file ke dalam container
 COPY . .
 
-ENV CLIENT_URL="https://frontend-ppic.vercel.app"
+ENV CLIENT_URL="https://frontend-ppic-47429645215.asia-southeast2.run.app"
 ENV ACCESS_TOKEN_SECRET = "ff97sdf88dyfdjf94ysdjglf89497jafasdjf984ydjjf75fjajdf894789jaf9d8fu8df847y8sdf"
 ENV REFRESH_TOKEN_SECRET = "ldjafisdofj8947848j84hf84hf7yjs9f849jfq98un4yneyf478nf7hf78ygrhg78ty4uwt9nru89rtu8en98g"
 
