@@ -18,4 +18,4 @@ ENV CLIENT_URL="https://frontend-ppic.vercel.app"
 EXPOSE 3000
 
 # Jalankan aplikasi
-CMD ["npm", "start"]
+CMD ["node", "index.js"]

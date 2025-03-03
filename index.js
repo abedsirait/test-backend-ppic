@@ -5,6 +5,7 @@ import cors from "cors";
 import db from "./config/Database.js";
 import UserRoute from "./routes/UserRoute.js";
 
+const port = process.env.PORT || 8080;
 dotenv.config();
 const app = express();
 
@@ -43,6 +44,6 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(UserRoute);
 
-app.listen(3000, () => {
-    console.log("Server running on port 3000");
+app.listen(port, "0.0.0.0", () => {
+    console.log("Server running on port 5500");
 });
