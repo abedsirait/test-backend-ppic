@@ -15,7 +15,7 @@ COPY . .
 
 ENV CLIENT_URL="https://frontend-ppic.vercel.app"
 
-EXPOSE 3000
+EXPOSE 8080
 
 # Jalankan aplikasi
 CMD ["node", "index.js"]
