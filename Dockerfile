@@ -15,7 +15,7 @@ COPY . .
 
 ENV CLIENT_URL="https://frontend-ppic.vercel.app"
 
-EXPOSE 5500
+EXPOSE 8080
 
 # Jalankan aplikasi
 CMD ["npm", "start"]
