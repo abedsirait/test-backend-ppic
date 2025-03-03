@@ -13,6 +13,8 @@ RUN npm install
 # Copy seluruh file ke dalam container
 COPY . .
 
+ENV CLIENT_URL="https://frontend-ppic.vercel.app"
+
 EXPOSE 5500
 
 # Jalankan aplikasi
