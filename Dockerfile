@@ -1,0 +1,19 @@
+# Menggunakan image Node.js versi terbaru sebagai base image
+FROM node:18
+
+# Menetapkan direktori kerja di dalam container
+WORKDIR /app
+
+# Copy file package.json dan package-lock.json terlebih dahulu
+COPY package*.json ./
+
+# Install dependencies
+RUN npm install
+
+# Copy seluruh file ke dalam container
+COPY . .
+
+EXPOSE 5500
+
+# Jalankan aplikasi
+CMD ["npm", "start"]
