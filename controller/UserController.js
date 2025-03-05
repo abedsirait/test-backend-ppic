@@ -55,7 +55,6 @@ export const uploadProductionresults = async (req, res) => {
             operator1,
             operator2,
             operator3,
-            shift,
             tanggal,
             tonase,
             totaljam,
@@ -76,6 +75,7 @@ export const uploadProductionresults = async (req, res) => {
                 karung3: detail.karung3,
                 tonase_label3: detail.tonase_label3,
                 operator: detail.operator,
+                shift: detail.shift,
                 jam: detail.jam,
                 productionResultId: productionResult.id // Foreign key ke production_results
             });

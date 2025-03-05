@@ -45,5 +45,5 @@ app.use(express.json());
 app.use(UserRoute);
 
 app.listen(port, "0.0.0.0", () => {
-    console.log("Server running on port 5500");
+    console.log("Server running on port ");
 });

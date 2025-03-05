@@ -30,7 +30,6 @@ export const Productionresults = db.define("production_results", {
     operator1: DataTypes.STRING,
     operator2: DataTypes.STRING,
     operator3: DataTypes.STRING,
-    shift: DataTypes.STRING,
     tanggal: DataTypes.DATE,
     tonase: DataTypes.INTEGER,
     totaljam: DataTypes.DECIMAL,
@@ -65,6 +64,7 @@ export const Detaillabel = db.define("detaillabel", {
     karung1 : DataTypes.INTEGER,
     karung2: DataTypes.INTEGER,
     karung3: DataTypes.INTEGER,
+    shift: DataTypes.STRING,
     productionResultId: {  // Foreign key
         type: DataTypes.INTEGER,
         allowNull: false,
