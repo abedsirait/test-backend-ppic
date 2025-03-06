@@ -270,8 +270,8 @@ export const exportProductionresults = async (req, res) => {
 
         // Header utama dan sub-header
         const header = [
-            ["Mesin", "Jenis Produk", "Nama Produk", "Kategori","Label", "Detail Label", "","","","","","","","","","","Tanggal", "Shift", "Supervisor", "Operator", "Tonase", "Keterangan", "CreateAt", "UpdateAt"],
-            ["", "", "", "", "", "Detail Label1", "Karung Label 1","Tonase Label 1","Detail Label2", "Karung Label 2","Tonase Label 2", "Detail Label3", "Karung Label 3","Tonase Label 3", "Operator", "Jam","", "", "", "", "", "","",""]
+            ["Mesin", "Jenis Produk", "Nama Produk", "Kategori","Label", "Detail Label", "","","","","","","","","","","","Tanggal",  "Supervisor", "Operator", "Tonase", "Keterangan", "CreateAt", "UpdateAt"],
+            ["", "", "", "", "", "Detail Label1", "Karung Label 1","Tonase Label 1","Detail Label2", "Karung Label 2","Tonase Label 2", "Detail Label3", "Karung Label 3","Tonase Label 3", "Operator", "Shift", "Jam","", "", "", "", "", "","",""]
         ];
 
         // Data untuk setiap produksi dan detail label
@@ -289,28 +289,38 @@ export const exportProductionresults = async (req, res) => {
                 .join(", ") || ""; // Jika semua kosong, return string kosong
             const details = item.details;
 
-            details.forEach((detail, index) => {
+            if (details.length === 0) {
                 jsonData.push([
-                    
-                    index === 0 ? item.mesin : "",
-                    index === 0 ? item.jenisproduk : "",
-                    index === 0 ? item.namaproduk : "",
-                    index === 0 ? item.kategori : "", 
-                    index === 0 ? item.labelumum : "",
-                    detail.detaillabel1, detail.karung1, detail.tonase_label1,
-                    detail.detaillabel2, detail.karung2, detail.tonase_label2,
-                    detail.detaillabel3, detail.karung3, detail.tonase_label3,
-                    detail.operator, detail.jam,
-                    index === 0 ? item.tanggal : "",
-                    index === 0 ? item.shift : "",
-                    index === 0 ? item.supervisor : "",
-                    index === 0 ? `${item.operator1}, ${item.operator2}, ${item.operator3}` : "",
-                    index === 0 ? item.tonase : "",
-                    penyebabKarantinaData,
-                    index === 0 ? formatDate(item.createdAt) : "",
-                    index === 0 ? formatDate(item.updatedAt) : ""
+                    item.mesin, item.jenisproduk, item.namaproduk, item.kategori, 
+                    item.labelumum, "", "", "", "", "", "", "", "", "", "", "","",
+                    item.tanggal, item.supervisor,
+                    `${item.operator1}, ${item.operator2}, ${item.operator3}`,
+                    item.tonase, penyebabKarantinaData,
+                    formatDate(item.createdAt), formatDate(item.updatedAt)
                 ]);
-            });
+            } else {
+                details.forEach((detail, index) => {
+                    jsonData.push([
+                        index === 0 ? item.mesin : "",
+                        index === 0 ? item.jenisproduk : "",
+                        index === 0 ? item.namaproduk : "",
+                        index === 0 ? item.kategori : "", 
+                        index === 0 ? item.labelumum : "",
+                        detail.detaillabel1, detail.karung1, detail.tonase_label1,
+                        detail.detaillabel2, detail.karung2, detail.tonase_label2,
+                        detail.detaillabel3, detail.karung3, detail.tonase_label3,
+                        detail.operator,detail.shift, detail.jam,
+                        index === 0 ? item.tanggal : "",
+                        index === 0 ? item.supervisor : "",
+                        index === 0 ? `${item.operator1}, ${item.operator2}, ${item.operator3}` : "",
+                        index === 0 ? item.tonase : "",
+                        index === 0 ? penyebabKarantinaData : "",
+                        index === 0 ? formatDate(item.createdAt) : "",
+                        index === 0 ? formatDate(item.updatedAt) : ""
+                    ]);
+                });
+            }
+            
 
             // Merge cell untuk data utama agar hanya tampil sekali di baris pertama
             if (details.length > 1) {
@@ -319,7 +329,6 @@ export const exportProductionresults = async (req, res) => {
                 merges.push({ s: { r: rowIndex, c: 2 }, e: { r: rowIndex + details.length - 1, c: 2 } }); // Jenis Produk
                 merges.push({ s: { r: rowIndex, c: 3 }, e: { r: rowIndex + details.length - 1, c: 3 } }); // Nama Produk
                 merges.push({ s: { r: rowIndex, c: 4 }, e: { r: rowIndex + details.length - 1, c: 4 } }); // Label
-                merges.push({ s: { r: rowIndex, c: 16 }, e: { r: rowIndex + details.length - 1, c: 16 } }); // Tanggal
                 merges.push({ s: { r: rowIndex, c: 17 }, e: { r: rowIndex + details.length - 1, c: 17 } }); // Shift
                 merges.push({ s: { r: rowIndex, c: 18 }, e: { r: rowIndex + details.length - 1, c: 18 } }); // Supervisor
                 merges.push({ s: { r: rowIndex, c: 19 }, e: { r: rowIndex + details.length - 1, c: 19 } }); // Operator
@@ -327,6 +336,7 @@ export const exportProductionresults = async (req, res) => {
                 merges.push({ s: { r: rowIndex, c: 21 }, e: { r: rowIndex + details.length - 1, c: 21 } }); // Keterangan
                 merges.push({ s: { r: rowIndex, c: 22 }, e: { r: rowIndex + details.length - 1, c: 22 } }); // CreateAt
                 merges.push({ s: { r: rowIndex, c: 23 }, e: { r: rowIndex + details.length - 1, c: 23 } }); // UpdateAt
+                merges.push({ s: { r: rowIndex, c: 24 }, e: { r: rowIndex + details.length - 1, c: 24 } });
             }
 
             rowIndex += details.length;
@@ -342,15 +352,15 @@ export const exportProductionresults = async (req, res) => {
             { s: { r: 0, c: 2 }, e: { r: 1, c: 2 } },
             { s: { r: 0, c: 3 }, e: { r: 1, c: 3 } },
             { s: { r: 0, c: 4 }, e: { r: 1, c: 4 } },
-            { s: { r: 0, c: 5 }, e: { r: 0, c: 15 } }, // Merge "Detail Label"
-            { s: { r: 0, c: 16 }, e: { r: 1, c: 16 } }, // Merge "Tanggal"
-            { s: { r: 0, c: 17 }, e: { r: 1, c: 17 } }, // Merge "Shift"
-            { s: { r: 0, c: 18 }, e: { r: 1, c: 18 } }, // Merge "Supervisor"
-            { s: { r: 0, c: 19 }, e: { r: 1, c: 19 } }, // Merge "Operator"
-            { s: { r: 0, c: 20 }, e: { r: 1, c: 20 } }, // Merge "Tonase"
-            { s: { r: 0, c: 21 }, e: { r: 1, c: 21 } }, // Merge "Keterangan"
-            { s: { r: 0, c: 22 }, e: { r: 1, c: 22 } }, // Merge "CreateAt"
-            { s: { r: 0, c: 23 }, e: { r: 1, c: 23 } }  // Merge "UpdateAt"
+            { s: { r: 0, c: 5 }, e: { r: 0, c: 16 } }, // Merge "Detail Label"
+            { s: { r: 0, c: 17 }, e: { r: 1, c: 17 } }, // Merge "Tanggal"
+            { s: { r: 0, c: 18 }, e: { r: 1, c: 18 } }, // Merge "Shift"
+            { s: { r: 0, c: 19 }, e: { r: 1, c: 19 } }, // Merge "Supervisor"
+            { s: { r: 0, c: 20 }, e: { r: 1, c: 20 } }, // Merge "Operator"
+            { s: { r: 0, c: 21 }, e: { r: 1, c: 21 } }, // Merge "Tonase"
+            { s: { r: 0, c: 22 }, e: { r: 1, c: 22 } }, // Merge "Keterangan"
+            { s: { r: 0, c: 23 }, e: { r: 1, c: 23 } }, // Merge "CreateAt"
+            { s: { r: 0, c: 24 }, e: { r: 1, c: 24 } }  // Merge "UpdateAt"
         );
 
         worksheet["!cols"] = [
